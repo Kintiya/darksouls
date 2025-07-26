@@ -29,26 +29,27 @@
   <script src="script.js"></script>
   <script>
   const audio = document.getElementById('bgMusic');
-  const storageKey = 'bgMusicTime';
+    const storageKey = 'bgMusicTime';
 
-  window.addEventListener('DOMContentLoaded', () => {
-    const savedTime = localStorage.getItem(storageKey);
-    if (savedTime) {
-      audio.currentTime = parseFloat(savedTime);
-    }
-    audio.play().catch(() => {
-      console.log('Автозапуск заблокирован браузером');
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTime = localStorage.getItem(storageKey);
+      if (savedTime) {
+        audio.currentTime = parseFloat(savedTime);
+      }
+      audio.volume = 0.5; // громкость 50%
+      audio.play().catch(() => {
+        console.log('Автозапуск заблокирован браузером');
+      });
     });
-  });
 
-  window.addEventListener('beforeunload', () => {
-    localStorage.setItem(storageKey, audio.currentTime);
-  });
+    window.addEventListener('beforeunload', () => {
+      localStorage.setItem(storageKey, audio.currentTime);
+    });
 
-  audio.addEventListener('ended', () => {
-    audio.currentTime = 0;
-    audio.play();
-  });
+    audio.addEventListener('ended', () => {
+      audio.currentTime = 0;
+      audio.play();
+    });
 </script>
 </body>
 </html>
