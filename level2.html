@@ -8,27 +8,37 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- Фоновая музыка -->
   <audio id="bgMusic" src="music.mp3" autoplay loop></audio>
+
   <div class="fire-flash" id="flash"></div>
- <div class="smoke-overlay"></div>
+  <div class="smoke-overlay"></div>
+
   <div class="container">
     <h1 class="title">Испытание 2: Письмена Предков</h1>
-    <audio autoplay>
-      <source src="audio/level2.mp3" type="audio/mpeg">
+
+    <!-- Озвучка с id -->
+    <audio id="voiceAudio" autoplay>
+      <source src="audio/level2.mp3" type="audio/mpeg" />
       Ваш браузер не поддерживает аудио.
     </audio>
+
     <p class="text">
-      Ты стал невидим. Но память тебе ещё доступна.
-В дереве мёртвом покоятся образы.
-Но не всякая книга — знание.
-Ищи среди забытых форм
-то, что говорит без слов.
+      Ты стал невидим. Но память тебе ещё доступна.<br>
+      В дереве мёртвом покоятся образы.<br>
+      Но не всякая книга — знание.<br>
+      Ищи среди забытых форм<br>
+      то, что говорит без слов.
     </p>
+
     <a href="level3.html" class="button" onclick="triggerFlash(event)">Далее</a>
   </div>
+
   <script src="script.js"></script>
+
   <script>
-  const audio = document.getElementById('bgMusic');
+    const audio = document.getElementById('bgMusic');
+    const voiceAudio = document.getElementById('voiceAudio');
     const storageKey = 'bgMusicTime';
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -36,10 +46,17 @@
       if (savedTime) {
         audio.currentTime = parseFloat(savedTime);
       }
-      audio.volume = 0.5; // громкость 50%
+      audio.volume = 0.5; // Фоновая музыка громкостью 50%
       audio.play().catch(() => {
         console.log('Автозапуск заблокирован браузером');
       });
+
+      if (voiceAudio) {
+        voiceAudio.volume = 1.0; // Озвучка громкая
+        voiceAudio.play().catch(() => {
+          console.log('Озвучка не запущена');
+        });
+      }
     });
 
     window.addEventListener('beforeunload', () => {
@@ -50,6 +67,6 @@
       audio.currentTime = 0;
       audio.play();
     });
-</script>
+  </script>
 </body>
 </html>
