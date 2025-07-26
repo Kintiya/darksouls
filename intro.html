@@ -7,14 +7,20 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- Фоновая музыка -->
   <audio id="bgMusic" src="music.mp3" autoplay loop></audio>
+
   <div class="fire-flash" id="flash"></div>
   <div class="smoke-overlay"></div>
+
   <div class="container fade-in">
     <h1 class="title">Пробуждение</h1>
-   <audio autoplay>
-  <source src="audio/intro.mp3" type="audio/mpeg" />
-</audio>
+
+    <!-- Озвучка с id -->
+    <audio id="voiceAudio" autoplay>
+      <source src="audio/intro.mp3" type="audio/mpeg" />
+    </audio>
+
     <p class="text">
       Ты... вновь проснулся. Мир мёртв, но не забыт.<br>
       Искра угасла, но не потухла.<br>
@@ -22,22 +28,13 @@
       Пройди три Испытания, возжги Свет Творения.<br>
       Или... сгинь, как и миллионы до тебя.
     </p>
+
     <a href="level1.html" class="button" onclick="triggerFlash(event)">Начать путь</a>
   </div>
+
   <script>
-  window.addEventListener("DOMContentLoaded", () => {
-    const started = localStorage.getItem("questStarted");
-    if (started === "true") {
-      const audio = document.getElementById("introAudio");
-      audio.play().catch(e => {
-        console.log("Аудио не запущено:", e);
-      });
-      localStorage.removeItem("questStarted");
-    }
-  });
-</script>
-  <script>
- const audio = document.getElementById('bgMusic');
+    const audio = document.getElementById('bgMusic');
+    const voiceAudio = document.getElementById('voiceAudio');
     const storageKey = 'bgMusicTime';
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -45,10 +42,17 @@
       if (savedTime) {
         audio.currentTime = parseFloat(savedTime);
       }
-      audio.volume = 0.5; // громкость 50%
+      audio.volume = 0.5; // Фоновая музыка громкостью 50%
       audio.play().catch(() => {
         console.log('Автозапуск заблокирован браузером');
       });
+
+      if (voiceAudio) {
+        voiceAudio.volume = 1.0; // Озвучка громкая
+        voiceAudio.play().catch(() => {
+          console.log('Озвучка не запущена');
+        });
+      }
     });
 
     window.addEventListener('beforeunload', () => {
@@ -59,6 +63,26 @@
       audio.currentTime = 0;
       audio.play();
     });
-</script>
+
+    function triggerFlash(event) {
+      event.preventDefault();
+
+      const flash = document.getElementById("flash");
+
+      flash.style.opacity = "1";
+      flash.style.transition = "opacity 0.5s";
+
+      setTimeout(() => {
+        flash.style.opacity = "0";
+      }, 400);
+
+      setTimeout(() => {
+        if (audio) {
+          localStorage.setItem(storageKey, audio.currentTime);
+        }
+        window.location.href = event.target.href;
+      }, 500);
+    }
+  </script>
 </body>
 </html>
