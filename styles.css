@@ -68,6 +68,22 @@ body {
   opacity: 1;
 }
 
+.smoke-overlay {
+  pointer-events: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: url('https://i.imgur.com/BlKzG6P.png') repeat; /* прозрачный дым */
+  animation: smokeMove 20s linear infinite;
+  opacity: 0.25;
+  z-index: 1000;
+}
+
+@keyframes smokeMove {
+  from { background-position: 0 0; }
+  to { background-position: 1000px 0; }
+}
+
 @keyframes sparks {
   0%, 100% {
     box-shadow: 0 0 10px #ff6600, 0 0 20px #ffcc00, 0 0 30px #ffaa00;
