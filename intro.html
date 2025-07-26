@@ -10,10 +10,9 @@
   <div class="fire-flash" id="flash"></div>
   <div class="container">
     <h1 class="title">Пробуждение</h1>
-    <audio autoplay muted>
-      <source src="audio/intro.mp3" type="audio/mpeg">
-      Ваш браузер не поддерживает аудио.
-    </audio>
+    <audio id="introAudio">
+  <source src="audio/intro.mp3" type="audio/mpeg" />
+</audio>
     <p class="text">
       Ты... вновь проснулся. Мир мёртв, но не забыт.<br>
       Искра угасла, но не потухла.<br>
@@ -23,6 +22,17 @@
     </p>
     <a href="level1.html" class="button" onclick="triggerFlash(event)">Начать путь</a>
   </div>
-  <script src="script.js"></script>
+  <script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const started = localStorage.getItem("questStarted");
+    if (started === "true") {
+      const audio = document.getElementById("introAudio");
+      audio.play().catch(e => {
+        console.log("Аудио не запущено:", e);
+      });
+      localStorage.removeItem("questStarted");
+    }
+  });
+</script>
 </body>
 </html>
