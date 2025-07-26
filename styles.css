@@ -73,7 +73,7 @@ body {
   position: fixed;
   top: 0; left: 0;
   width: 100vw; height: 100vh;
-  background: url('smoke.png') repeat; /* прозрачный дым */
+  background: url('images/smoke.png') repeat; /* прозрачный дым */
   animation: smokeMove 20s linear infinite;
   opacity: 0.25;
   z-index: 1000;
