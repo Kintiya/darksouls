@@ -76,3 +76,13 @@ body {
     box-shadow: 0 0 30px #ff9900, 0 0 60px #ffcc33, 0 0 90px #ffaa33;
   }
 }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 1.5s ease forwards;
+  opacity: 0; /* начальное состояние */
+}
