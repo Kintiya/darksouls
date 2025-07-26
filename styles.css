@@ -3,56 +3,52 @@
 body {
   margin: 0;
   padding: 0;
-  background: linear-gradient(#0f0f0f, #1a1a1a);
-  color: #dcdcdc;
-  font-family: 'UnifrakturCook', serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
+  font-family: 'UnifrakturCook', cursive;
+  background: url('https://i.pinimg.com/originals/61/39/f4/6139f4c2b3f76228df53d8645179b9c2.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #f0e6d2;
+  text-shadow: 1px 1px 4px #000;
   overflow-x: hidden;
 }
 
 .container {
   text-align: center;
+  padding: 50px 20px;
   max-width: 800px;
-  padding: 20px;
-  animation: fadeIn 2s ease-in;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 2px solid #aa7733;
+  border-radius: 20px;
+  box-shadow: 0 0 30px #ff6600;
 }
 
 .title {
   font-size: 3rem;
-  color: #ffcc00;
   margin-bottom: 20px;
-  text-shadow: 0 0 10px #ff9900;
+  color: #ffcc66;
 }
 
 .text {
-  font-size: 1.5rem;
-  line-height: 1.7;
+  font-size: 1.3rem;
+  line-height: 1.6;
   margin-bottom: 40px;
 }
 
-.audio-block {
-  margin-bottom: 20px;
-}
-
 .button {
-  display: inline-block;
-  padding: 15px 30px;
+  background: linear-gradient(90deg, #aa4400, #ff9900);
+  color: #000;
+  padding: 12px 24px;
   font-size: 1.2rem;
-  color: #fff;
-  background: #111;
-  border: 2px solid #ff9900;
+  border: none;
+  border-radius: 10px;
   text-decoration: none;
-  border-radius: 5px;
-  transition: background 0.3s, transform 0.2s;
+  box-shadow: 0 0 10px #ff6600;
+  transition: transform 0.2s ease-in-out;
 }
 
 .button:hover {
-  background: #ff9900;
-  color: #000;
-  transform: scale(1.05);
+  transform: scale(1.1);
+  box-shadow: 0 0 20px #ffaa00;
 }
 
 .fire-flash {
@@ -61,14 +57,18 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle, #ff6600 0%, #000 80%);
+  background: radial-gradient(circle at center, rgba(255,140,0,0.8), rgba(0,0,0,0) 70%);
   opacity: 0;
   pointer-events: none;
-  z-index: 9999;
-  transition: opacity 0.6s ease-in-out;
+  z-index: 1000;
+  animation: sparks 4s ease-in-out infinite;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(30px); }
-  to   { opacity: 1; transform: translateY(0); }
+@keyframes sparks {
+  0%, 100% {
+    box-shadow: 0 0 10px #ff6600, 0 0 20px #ffcc00, 0 0 30px #ffaa00;
+  }
+  50% {
+    box-shadow: 0 0 30px #ff9900, 0 0 60px #ffcc33, 0 0 90px #ffaa33;
+  }
 }
