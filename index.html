@@ -9,40 +9,61 @@
 <body>
   <audio id="bgMusic" src="music.mp3" autoplay loop></audio>
   <div class="fire-flash" id="flash"></div>
- <div class="smoke-overlay"></div>
+  <div class="smoke-overlay"></div>
   <div class="container">
     <h1 class="title fade-in">DARK SOULS:<br><span class="highlight">Искра Творения</span></h1>
     <p class="text fade-in">Квест в одном дыхании. Один. Без надежды. Но с Искрой...</p>
-    <a href="intro.html" class="button fade-in" onclick="startQuest()">НАЧАТЬ</a>
+    <a href="intro.html" class="button fade-in" onclick="startQuest(event)">НАЧАТЬ</a>
   </div>
-  <script>
-  function startQuest() {
-    localStorage.setItem("questStarted", "true");
-    triggerFlash(event);
-  }
-</script>
-  <script>
-  const audio = document.getElementById('bgMusic');
-  const storageKey = 'bgMusicTime';
 
-  window.addEventListener('DOMContentLoaded', () => {
-    const savedTime = localStorage.getItem(storageKey);
-    if (savedTime) {
-      audio.currentTime = parseFloat(savedTime);
-    }
-    audio.play().catch(() => {
-      console.log('Автозапуск заблокирован браузером');
+  <script>
+    const audio = document.getElementById('bgMusic');
+    const storageKey = 'bgMusicTime';
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTime = localStorage.getItem(storageKey);
+      if (savedTime) {
+        audio.currentTime = parseFloat(savedTime);
+      }
+      audio.volume = 0.5; // громкость 50%
+      audio.play().catch(() => {
+        console.log('Автозапуск заблокирован браузером');
+      });
     });
-  });
 
-  window.addEventListener('beforeunload', () => {
-    localStorage.setItem(storageKey, audio.currentTime);
-  });
+    window.addEventListener('beforeunload', () => {
+      localStorage.setItem(storageKey, audio.currentTime);
+    });
 
-  audio.addEventListener('ended', () => {
-    audio.currentTime = 0;
-    audio.play();
-  });
-</script>
+    audio.addEventListener('ended', () => {
+      audio.currentTime = 0;
+      audio.play();
+    });
+
+    function triggerFlash(event) {
+      event.preventDefault();
+
+      const flash = document.getElementById("flash");
+
+      flash.style.opacity = "1";
+      flash.style.transition = "opacity 0.5s";
+
+      setTimeout(() => {
+        flash.style.opacity = "0";
+      }, 400);
+
+      setTimeout(() => {
+        if (audio) {
+          localStorage.setItem(storageKey, audio.currentTime);
+        }
+        window.location.href = event.target.href;
+      }, 500);
+    }
+
+    function startQuest(event) {
+      localStorage.setItem("questStarted", "true");
+      triggerFlash(event);
+    }
+  </script>
 </body>
 </html>
